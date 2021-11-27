@@ -92,10 +92,11 @@ class eg_class6
 
 public:
     int param1;
-    int *param2 = new int(30);
+    int *param2;
     eg_class6(int a)
     {
         this->param1 = a;
+        this->param2 = new int(a);
     }
     int operator+(eg_class6 obj2)
     {
@@ -113,10 +114,33 @@ public:
         this->param1=this->param1+1;
         return temp;
     }
+    eg_class6& operator= (const eg_class6 &obj)
+    {
+        this->param2=new int(*(obj.param2));
+        cout<<"deep copy value:"<<*this->param2<<endl;
+        cout<<"origin value:"<<*(obj.param2)<<endl;
+        cout<<"deep copy addr:"<<this->param2<<endl;
+        cout<<"origin addr:"<<obj.param2<<endl;
+        return *this;
+    }
+    bool operator== (const eg_class6 &obj)
+    {
+        if(obj.param1==this->param1 && obj.param2==this->param2)
+            return 1;
+        else
+            cout<<"not eq!"<<endl;
+        return 0;
+    }
+    void operator()(int a, int b)
+    {
+        cout<<"call reload!"<<endl;
+        cout<<"param1 is:"<<this->param1<<endl;
+        cout<<"inputs are"<<a<<"and"<<b<<endl;
+    }
     ~eg_class6()
     {
         delete param2;
-        cout<<"eg_class6 deconstructor"<<endl;
+        cout<<"eg_class6 deconstructor:"<<this->param1<<endl;
     }
 };
 
@@ -175,6 +199,8 @@ void Demo3()
     cout << &obj << endl;
     ref_ptr.external_func();
     delete obj2;
+
+    
     cout << endl;
 }
 void Demo4()
@@ -190,8 +216,33 @@ void Demo4()
     cout<<obj1.param1<<endl;
 
     eg_class6 obj3(20);
-    eg_class6 cp_obj3=obj3;
-    cout <<"end"<<endl;
+    eg_class6 cp_obj3(10);
+    eg_class6 cpcp_obj3(5);
+    cpcp_obj3=cp_obj3=obj3;//这样才是调用重载的=,在初始化时候的=是原先的版本
+    cout <<"obj3 addr:"<<obj3.param2<<endl;    
+    cout <<"cp_obj3 addr:"<<cp_obj3.param2<<endl;
+    cout <<"cpcp_obj3 addr:"<<cpcp_obj3.param2<<endl;
+    cout <<"cp_obj3 point to:"<<*(cp_obj3.param2)<<endl;   
+    cout <<"cpcp_obj3 point to:"<<*(cpcp_obj3.param2)<<endl;   
+
+    if (obj3==cp_obj3)
+    {
+        cout<<"obj3==cpo_bj3"<<endl;
+    }
+    else
+    {
+        cout<<"something not eq!"<<endl;
+    }
+
+    if (obj3==obj3)
+    {
+        cout<<"obj3==cpo_bj3"<<endl;
+    }
+    else
+    {
+        cout<<"something not eq!"<<endl;
+    }
+    obj3(12,22);
 }
 
 void fr_func(eg_class3 *obj)
