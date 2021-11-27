@@ -1,0 +1,3 @@
+D:/desktop/my research/folding carton/C-Prime/lab3 intermidiate2/build/CMakeFiles/lab3_demo.dir
+D:/desktop/my research/folding carton/C-Prime/lab3 intermidiate2/build/CMakeFiles/edit_cache.dir
+D:/desktop/my research/folding carton/C-Prime/lab3 intermidiate2/build/CMakeFiles/rebuild_cache.dir
